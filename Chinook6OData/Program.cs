@@ -29,7 +29,7 @@ builder.Services.AddControllers()
             .OrderBy()
             .Expand()
             .SetMaxTop(100);
-        options.AddRouteComponents("api/", model);
+        options.AddRouteComponents("odata", model);
     });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<ChinookContext>(opt=> 
@@ -40,7 +40,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Version = "v1",
         Title = "Chinook OData API",
-        Description = "A simple example ASP.NET Core Web API",
+        Description = "A simple example ASP.NET Core Web API with OData"
     });
     
     options.DocInclusionPredicate((docName, apiDesc) =>

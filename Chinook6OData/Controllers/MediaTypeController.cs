@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 namespace Chinook6OData.Controllers;
 
 [Produces("application/json")]
-[ODataRouteComponent("api/[controller]")]
+[ODataRouteComponent("odata/[controller]")]
+[ODataAttributeRouting]
 public class MediaTypeController : ODataController
 {
     private readonly ChinookContext _context;
@@ -23,20 +24,20 @@ public class MediaTypeController : ODataController
     [EnableQuery]
     public IActionResult Get()
     {
-        var albums = _context.MediaTypes;
+        var mediaTypes = _context.MediaTypes;
 
-        return Ok();
+        return Ok(mediaTypes);
     }
     
     [HttpGet("{id}")]
     [EnableQuery]
     public IActionResult Get(int id)
     {
-        var album = _context.MediaTypes.FirstOrDefault(a => a.Id == id);
+        var mediaType = _context.MediaTypes.FirstOrDefault(a => a.Id == id);
 
-        if (album != null)
+        if (mediaType != null)
         {
-            return Ok();
+            return Ok(mediaType);
         }
         else
         {

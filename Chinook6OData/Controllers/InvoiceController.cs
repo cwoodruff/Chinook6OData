@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 namespace Chinook6OData.Controllers;
 
 [Produces("application/json")]
-[ODataRouteComponent("api/[controller]")]
+[ODataRouteComponent("odata/[controller]")]
+[ODataAttributeRouting]
 public class InvoiceController : ODataController
 {
     private readonly ChinookContext _context;
@@ -23,20 +24,20 @@ public class InvoiceController : ODataController
     [EnableQuery]
     public IActionResult Get()
     {
-        var albums = _context.Invoices;
+        var invoices = _context.Invoices;
 
-        return Ok();
+        return Ok(invoices);
     }
     
     [HttpGet("{id}")]
     [EnableQuery]
     public IActionResult Get(int id)
     {
-        var album = _context.Invoices.FirstOrDefault(a => a.Id == id);
+        var invoice = _context.Invoices.FirstOrDefault(a => a.Id == id);
 
-        if (album != null)
+        if (invoice != null)
         {
-            return Ok();
+            return Ok(invoice);
         }
         else
         {

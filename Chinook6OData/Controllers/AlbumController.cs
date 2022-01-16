@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.OData.Routing.Attributes;
 namespace Chinook6OData.Controllers;
 
 [Produces("application/json")]
-[ODataRouteComponent("api/[controller]")]
+[ODataRouteComponent("odata/[controller]")]
+[ODataAttributeRouting]
 public class AlbumController : ODataController
 {
     private readonly ChinookContext _context;
@@ -25,7 +26,7 @@ public class AlbumController : ODataController
     {
         var albums = _context.Albums;
 
-        return Ok();
+        return Ok(albums);
     }
     
     [HttpGet("{id}")]
@@ -36,7 +37,7 @@ public class AlbumController : ODataController
 
          if (album != null)
          {
-             return Ok();
+             return Ok(album);
          }
          else
          {
