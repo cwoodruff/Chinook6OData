@@ -1,26 +1,27 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Chinook6OData.Controllers;
 
-[Produces("application/json")]
-[ODataRouteComponent("odata/[controller]")]
-[ODataAttributeRouting]
-public class CustomerController : ODataController
+// [Produces("application/json")]
+// [ODataRouteComponent("odata/[controller]")]
+// [ODataAttributeRouting]
+
+[ApiController]
+[Route("odata/[controller]/[action]")]
+public class CustomersController : ODataController
 {
     private readonly ChinookContext _context;
-    private readonly ILogger<AlbumController> _logger;
+    private readonly ILogger<CustomersController> _logger;
 
-    public CustomerController(ChinookContext context, ILogger<AlbumController> logger)
+    public CustomersController(ChinookContext context, ILogger<CustomersController> logger)
     {
         _context = context;
         _logger = logger;
     }
     
-    [HttpGet]
     [HttpGet]
     [EnableQuery]
     public IActionResult Get()
@@ -30,7 +31,7 @@ public class CustomerController : ODataController
         return Ok(customers);
     }
     
-    [HttpGet("{id}")]
+    [HttpGet]
     [EnableQuery]
     public IActionResult Get(int id)
     {

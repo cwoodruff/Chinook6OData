@@ -1,20 +1,22 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Chinook6OData.Controllers;
 
-[Produces("application/json")]
-[ODataRouteComponent("odata/[controller]")]
-[ODataAttributeRouting]
-public class MediaTypeController : ODataController
+// [Produces("application/json")]
+// [ODataRouteComponent("odata/[controller]")]
+// [ODataAttributeRouting]
+
+[ApiController]
+[Route("odata/[controller]/[action]")]
+public class MediaTypesController : ODataController
 {
     private readonly ChinookContext _context;
-    private readonly ILogger<AlbumController> _logger;
+    private readonly ILogger<MediaTypesController> _logger;
 
-    public MediaTypeController(ChinookContext context, ILogger<AlbumController> logger)
+    public MediaTypesController(ChinookContext context, ILogger<MediaTypesController> logger)
     {
         _context = context;
         _logger = logger;
@@ -29,7 +31,7 @@ public class MediaTypeController : ODataController
         return Ok(mediaTypes);
     }
     
-    [HttpGet("{id}")]
+    [HttpGet]
     [EnableQuery]
     public IActionResult Get(int id)
     {

@@ -6,15 +6,18 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Chinook6OData.Controllers;
 
-[Produces("application/json")]
-[ODataRouteComponent("odata/[controller]")]
-[ODataAttributeRouting]
-public class GenreController : ODataController
+// [Produces("application/json")]
+// [ODataRouteComponent("odata/[controller]")]
+// [ODataAttributeRouting]
+
+[ApiController]
+[Route("odata/[controller]/[action]")]
+public class ArtistsController : ODataController
 {
     private readonly ChinookContext _context;
-    private readonly ILogger<AlbumController> _logger;
+    private readonly ILogger<ArtistsController> _logger;
 
-    public GenreController(ChinookContext context, ILogger<AlbumController> logger)
+    public ArtistsController(ChinookContext context, ILogger<ArtistsController> logger)
     {
         _context = context;
         _logger = logger;
@@ -24,20 +27,20 @@ public class GenreController : ODataController
     [EnableQuery]
     public IActionResult Get()
     {
-        var genres = _context.Genres;
+        var artists = _context.Artists;
 
-        return Ok(genres);
+        return Ok(artists);
     }
     
-    [HttpGet("{id}")]
+    [HttpGet]
     [EnableQuery]
     public IActionResult Get(int id)
     {
-        var genre = _context.Genres.FirstOrDefault(a => a.Id == id);
+        var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
 
-        if (genre != null)
+        if (artist != null)
         {
-            return Ok(genre);
+            return Ok(artist);
         }
         else
         {

@@ -1,20 +1,22 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Chinook6OData.Controllers;
 
-[Produces("application/json")]
-[ODataRouteComponent("odata/[controller]")]
-[ODataAttributeRouting]
-public class PlaylistController : ODataController
+// [Produces("application/json")]
+// [ODataRouteComponent("odata/[controller]")]
+// [ODataAttributeRouting]
+
+[ApiController]
+[Route("odata/[controller]/[action]")]
+public class EmployeesController : ODataController
 {
     private readonly ChinookContext _context;
-    private readonly ILogger<AlbumController> _logger;
+    private readonly ILogger<EmployeesController> _logger;
 
-    public PlaylistController(ChinookContext context, ILogger<AlbumController> logger)
+    public EmployeesController(ChinookContext context, ILogger<EmployeesController> logger)
     {
         _context = context;
         _logger = logger;
@@ -24,20 +26,20 @@ public class PlaylistController : ODataController
     [EnableQuery]
     public IActionResult Get()
     {
-        var playlists = _context.Playlists;
+        var employees = _context.Employees;
 
-        return Ok(playlists);
+        return Ok();
     }
     
-    [HttpGet("{id}")]
+    [HttpGet]
     [EnableQuery]
     public IActionResult Get(int id)
     {
-        var playlist = _context.Playlists.FirstOrDefault(a => a.Id == id);
+        var employee = _context.Employees.FirstOrDefault(a => a.Id == id);
 
-        if (playlist != null)
+        if (employee != null)
         {
-            return Ok(playlist);
+            return Ok(employee);
         }
         else
         {

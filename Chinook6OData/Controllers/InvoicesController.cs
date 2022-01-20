@@ -1,20 +1,22 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Chinook6OData.Controllers;
 
-[Produces("application/json")]
-[ODataRouteComponent("odata/[controller]")]
-[ODataAttributeRouting]
-public class ArtistController : ODataController
+// [Produces("application/json")]
+// [ODataRouteComponent("odata/[controller]")]
+// [ODataAttributeRouting]
+
+[ApiController]
+[Route("odata/[controller]/[action]")]
+public class InvoicesController : ODataController
 {
     private readonly ChinookContext _context;
-    private readonly ILogger<AlbumController> _logger;
+    private readonly ILogger<InvoicesController> _logger;
 
-    public ArtistController(ChinookContext context, ILogger<AlbumController> logger)
+    public InvoicesController(ChinookContext context, ILogger<InvoicesController> logger)
     {
         _context = context;
         _logger = logger;
@@ -24,20 +26,20 @@ public class ArtistController : ODataController
     [EnableQuery]
     public IActionResult Get()
     {
-        var artists = _context.Artists;
+        var invoices = _context.Invoices;
 
-        return Ok(artists);
+        return Ok(invoices);
     }
     
-    [HttpGet("{id}")]
+    [HttpGet]
     [EnableQuery]
     public IActionResult Get(int id)
     {
-        var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
+        var invoice = _context.Invoices.FirstOrDefault(a => a.Id == id);
 
-        if (artist != null)
+        if (invoice != null)
         {
-            return Ok(artist);
+            return Ok(invoice);
         }
         else
         {
