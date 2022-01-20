@@ -5,12 +5,6 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace Chinook6OData.Controllers;
 
-// [Produces("application/json")]
-// [ODataRouteComponent("odata/[controller]")]
-// [ODataAttributeRouting]
-
-[ApiController]
-[Route("odata/[controller]/[action]")]
 public class InvoiceLinesController : ODataController
 {
     private readonly ChinookContext _context;
@@ -31,7 +25,7 @@ public class InvoiceLinesController : ODataController
         return Ok(invoiceLines);
     }
     
-    [HttpGet]
+    [HttpGet("odata/InvoiceLines({id})")]
     [EnableQuery]
     public IActionResult Get(int id)
     {

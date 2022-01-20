@@ -1,17 +1,12 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
 
 namespace Chinook6OData.Controllers;
 
-// [Produces("application/json")]
-// [ODataRouteComponent("odata/[controller]")]
-[ODataAttributeRouting]
-
-[ApiController]
-[Route("odata/[controller]/[action]")]
 public class AlbumsController : ODataController
 {
     private readonly ChinookContext _context;
@@ -32,7 +27,7 @@ public class AlbumsController : ODataController
         return Ok(albums);
     }
     
-    [HttpGet]
+    [HttpGet("odata/Albums({id})")]
     [EnableQuery]
     public IActionResult Get(int id)
     {
